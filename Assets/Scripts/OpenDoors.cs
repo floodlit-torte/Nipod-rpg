@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public class OpenDoors : MonoBehaviour
 {
@@ -12,14 +12,19 @@ public class OpenDoors : MonoBehaviour
     [SerializeField] private Transform leftDoor;
     [SerializeField] private Transform rightDoor;
     [SerializeField] private InputAction openDoors;
-    [SerializeField] private Vector3 _openedRightDoor = new Vector3(0f, 80f, 0f);
-    [SerializeField] private Vector3 _openedLeftDoor = new Vector3(0f, -170f, 0f);
+    [SerializeField] private Vector3 openedRightDoor;
+    [SerializeField] private Vector3 openedLeftDoor;
 
     private bool _isInRadius;
     
     private void OnEnable()
     {
         openDoors.Enable();
+    }
+
+    private void OnDisable()
+    {
+        openDoors.Disable();
     }
 
     private void Update()
@@ -31,8 +36,8 @@ public class OpenDoors : MonoBehaviour
     {
         if (CheckOutAvaibility() && openDoors.ReadValue<float>() > 0.1f)
         {
-            leftDoor.DORotate(_openedLeftDoor, 1f);
-            rightDoor.DORotate(_openedRightDoor, 1f);
+            leftDoor.DORotate(openedLeftDoor, 1f);
+            rightDoor.DORotate(openedRightDoor, 1f);
         }
     }
     

@@ -21,6 +21,11 @@ public class ChestLoot : MonoBehaviour
         openChest.Enable();
     }
 
+    private void OnDisable()
+    {
+        openChest.Disable();
+    }
+
     private void Update()
     {
         if (CheckOutAvaibility() && openChest.ReadValue<float>() > 0.1f)
