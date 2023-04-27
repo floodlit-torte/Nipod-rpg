@@ -1,0 +1,34 @@
+{
+    "name": "PlayerControlls",
+    "maps": [
+        {
+            "name": "PlayerControlls",
+            "id": "cbc2fb6a-bdf8-4a81-8d3c-cb577a03c6b5",
+            "actions": [
+                {
+                    "name": "MeleeAttack",
+                    "type": "Button",
+                    "id": "f6728c1d-6aed-4cb8-b693-1878d8213598",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6314db89-f4e9-415e-ab32-9ef462a9712b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MeleeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
