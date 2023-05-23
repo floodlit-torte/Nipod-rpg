@@ -8,13 +8,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float meleeAtkRange = 100f;
     
     private PlayerBindings _playerBindings;
-    private Battle _battleManager;
     private Animator _animator;
 
     private void Awake()
     {
         _playerBindings = new PlayerBindings();
-        _battleManager = FindObjectOfType<Battle>();
         _animator = GetComponent<Animator>();
     }
 
@@ -41,12 +39,9 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, meleeAtkRange))
             {
-                Debug.Log(hit.transform.name);
-                Health enemy = hit.transform.GetComponent<Health>();  
-                if (enemy != null)
+                if (hit.transform.CompareTag("enemy"))
                 {
-                    Debug.Log(enemy.name);
-                    _battleManager.SetEnemy(enemy);
+                    Debug.Log("battle beginning");
                     Invoke(nameof(LoadBattleScene), 1f);
                 }
             }

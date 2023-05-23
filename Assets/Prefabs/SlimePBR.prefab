@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 9158327303028500066}
   - component: {fileID: 9098597169630491056}
   - component: {fileID: 9157684185170453454}
-  - component: {fileID: 9157684185170453450}
-  - component: {fileID: 9157684185170453453}
   m_Layer: 0
   m_Name: SlimePBR
   m_TagString: Untagged
@@ -29,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 9155941650645435356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9158364507682681460}
@@ -99,33 +97,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9157684185170453450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9155941650645435356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805bca014284def4db8308ed951c4e48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealthPoints: 100
-  maxSoulPoints: 50
---- !u!114 &9157684185170453453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9155941650645435356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e425bb7c4c94a340adf47422e08cc4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
 --- !u!1 &9156010944880660520
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +266,7 @@ GameObject:
   - component: {fileID: 9158079412900340334}
   - component: {fileID: 9151198717517399704}
   - component: {fileID: 9157684185981833966}
+  - component: {fileID: 137702290331266931}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -394,6 +366,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 032e9c3d6b8f7bd4281b52741574f3af, type: 3}
+--- !u!65 &137702290331266931
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156745632090868338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9791188, y: 1.7155561, z: 1.6733601}
+  m_Center: {x: 0.000000059604645, y: 0.033248782, z: 0.46162802}
 --- !u!1 &9156820632839882646
 GameObject:
   m_ObjectHideFlags: 0

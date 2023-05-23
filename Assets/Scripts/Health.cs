@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Health : MonoBehaviour
 {
@@ -44,14 +42,11 @@ public class Health : MonoBehaviour
         _battleHUD = GetComponent<BattleHUD>();
     }
 
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
         _currentHP -= Mathf.Abs(damage);
         _battleHUD.setHP((float)_currentHP / (float)maxHealthPoints);
 
-        if (_currentHP <= 0)
-        {
-            Destroy(gameObject);
-        }
+        return _currentHP <= 0 ? true : false;
     }
 }
