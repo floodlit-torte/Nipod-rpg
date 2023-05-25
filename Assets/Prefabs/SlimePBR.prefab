@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805bca014284def4db8308ed951c4e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 75
-  maxHealthPoints: 150
+  damage: 100
+  maxHealthPoints: 600
   maxSoulPoints: 20
 --- !u!1 &9156010944880660520
 GameObject:

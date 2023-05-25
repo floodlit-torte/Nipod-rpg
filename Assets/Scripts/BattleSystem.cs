@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public enum BattleState{START, PLAYERTURN, ENEMYTURN, WON, LOST}
 public class BattleSystem : MonoBehaviour
@@ -9,7 +10,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private BattleState state;
     [SerializeField] private Health player;
     [SerializeField] private GameObject[] enemyPrefabs; //array of possible enemies
-    [SerializeField] private Text dialogueText;
+    [SerializeField] private TMP_Text dialogueText;
     
     [SerializeField] private BattleHUD _playerHUD;
     [SerializeField] private BattleHUD _enemyHUD;
@@ -27,6 +28,10 @@ public class BattleSystem : MonoBehaviour
     private float coolDown = 2f;
 
     private Vector3 _pstarterPos;
+    private Quaternion _pstarterRot;
+
+    private int _victoryScene = 3;
+
 
     private void Start()
     {
@@ -36,6 +41,7 @@ public class BattleSystem : MonoBehaviour
         _playerAnimator = player.GetComponent<Animator>();
 
         _pstarterPos = player.transform.position;
+        _pstarterRot = player.transform.rotation;
         StartCoroutine(SetupBattle());
     }
 
@@ -62,7 +68,8 @@ public class BattleSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
-        //dialogueText.text = "Choose an action";
+        dialogueText.enabled = true;
+        dialogueText.text = "Choose an action.";
     }
 
     public void OnAttackButton()
@@ -71,21 +78,37 @@ public class BattleSystem : MonoBehaviour
             return;
         StartCoroutine(PlayerAttack());
     }
+    public void OnSkillButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+        StartCoroutine(PlayerSkill());
+    }
+
+    private IEnumerator PlayerSkill()
+    {
+        player.Heal(50);
+        dialogueText.text = "50HP restored";
+        yield return _waitTime;
+        StartCoroutine(EnemyTurn());
+    }
 
     private IEnumerator PlayerAttack()
     {
         bool isDead = enemy.TakeDamage(player.Damage);
 
         _playerAnimator.SetTrigger("MeleeAttack");
-        //update enemyHUD
-        
+        dialogueText.text = $"You made {player.Damage} damage";
         yield return _waitTime;
         _enemyAnimator.SetTrigger("Hit");
 
         player.transform.position = _pstarterPos;
+        player.transform.rotation = _pstarterRot;
 
         if (isDead)
         {
+            _enemyAnimator.SetTrigger("Die");
+            yield return _waitTime;
             state = BattleState.WON;
             EndBattle();
         }
@@ -101,6 +124,8 @@ public class BattleSystem : MonoBehaviour
         yield return _waitTime;
         bool isDead = player.TakeDamage(enemy.Damage);
         _enemyAnimator.SetTrigger("Attack");
+        dialogueText.text = $"{enemy.Damage} damege taken.";
+        _playerAnimator.SetTrigger("Hit");
         _playerHUD.setHP(player.CurrentHP);
 
         yield return _waitTime;
@@ -120,10 +145,10 @@ public class BattleSystem : MonoBehaviour
     private void EndBattle()
     {
         if(state == BattleState.WON)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Victory Scene
+            SceneManager.LoadScene(_victoryScene);
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2); // Defeated Scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
 }

@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private PlayerBindings _playerBindings;
     private Animator _animator;
 
+    private Vector3 _lastPos;
+
     private void Awake()
     {
         _playerBindings = new PlayerBindings();
@@ -41,8 +43,10 @@ public class Player : MonoBehaviour
             {
                 if (hit.transform.CompareTag("enemy"))
                 {
+                    _lastPos = transform.position;
                     Debug.Log("battle beginning");
                     Invoke(nameof(LoadBattleScene), 1f);
+                    Destroy(hit.transform.gameObject);
                 }
             }
         }

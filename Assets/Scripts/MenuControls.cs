@@ -3,9 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuControls : MonoBehaviour
 {
+    private int gameScene = 1;
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(gameScene);
     }
 
     public void ExitGame()

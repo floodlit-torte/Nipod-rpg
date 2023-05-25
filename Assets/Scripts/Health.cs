@@ -53,4 +53,14 @@ public class Health : MonoBehaviour
         else
             return false;
     }
+
+    public void Heal(int hp)
+    {
+        if (_currentSP >= hp)
+        {
+            _currentHP += hp;
+            _currentSP -= hp;
+        }
+        else return;
+    }
 }

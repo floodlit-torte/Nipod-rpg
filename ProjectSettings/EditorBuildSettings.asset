@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleGround.unity
     guid: 3c7af2dc7beb3cd4b84216bd8a37926e
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: 1d9694f563f5c8049af88822e5668daf
   m_configObjects: {}
