@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = Unity.Mathematics.Random;
 using UnityEngine.UI;
 
 public enum BattleState{START, PLAYERTURN, ENEMYTURN, WON, LOST}
@@ -10,32 +9,42 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private BattleState state;
     [SerializeField] private Health player;
     [SerializeField] private GameObject[] enemyPrefabs; //array of possible enemies
-    [SerializeField] private Health enemy; //enemy in current battle
     [SerializeField] private Text dialogueText;
+    
+    [SerializeField] private BattleHUD _playerHUD;
+    [SerializeField] private BattleHUD _enemyHUD;
 
-    private BattleHUD _playerHUD;
-    private BattleHUD _enemyHUD;
+    private Health enemy; //enemy in current battle
 
-    private Random _random = new Random();
+
+    private Animator _playerAnimator;
+    private Animator _enemyAnimator;
     
     //Position and rotation to spawn enemy
     private Vector3 _enemyPos = new Vector3(7f, 0f, -1f);
-    private Quaternion _enemyRot = new Quaternion(0f, -70f, 0f, 0f);
 
     private WaitForSecondsRealtime _waitTime; //waiting time between actions
     private float coolDown = 2f;
+
+    private Vector3 _pstarterPos;
 
     private void Start()
     {
         state = BattleState.START;
         _waitTime = new WaitForSecondsRealtime(coolDown);
+
+        _playerAnimator = player.GetComponent<Animator>();
+
+        _pstarterPos = player.transform.position;
         StartCoroutine(SetupBattle());
     }
 
     private IEnumerator SetupBattle()
     {
         GameObject enemyGO = SpawnEnemy();
+        enemyGO.transform.LookAt(player.transform);
         enemy = enemyGO.GetComponent<Health>();
+        _enemyAnimator = enemyGO.GetComponent<Animator>();
 
         _playerHUD.SetHUD(player);
 
@@ -47,12 +56,13 @@ public class BattleSystem : MonoBehaviour
 
     private GameObject SpawnEnemy()
     {
-        return Instantiate(enemyPrefabs[_random.NextInt(0, enemyPrefabs.Length)], _enemyPos, _enemyRot);
+        int index = Random.Range(0, enemyPrefabs.Length);
+        return Instantiate(enemyPrefabs[index], _enemyPos, Quaternion.identity);
     }
 
     private void PlayerTurn()
     {
-        dialogueText.text = "Choose an action";
+        //dialogueText.text = "Choose an action";
     }
 
     public void OnAttackButton()
@@ -65,10 +75,14 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator PlayerAttack()
     {
         bool isDead = enemy.TakeDamage(player.Damage);
-        
+
+        _playerAnimator.SetTrigger("MeleeAttack");
         //update enemyHUD
         
         yield return _waitTime;
+        _enemyAnimator.SetTrigger("Hit");
+
+        player.transform.position = _pstarterPos;
 
         if (isDead)
         {
@@ -80,14 +94,13 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
-        //play animation
-        //enemy.TakeDamage()
     }
 
     private IEnumerator EnemyTurn()
     {
+        yield return _waitTime;
         bool isDead = player.TakeDamage(enemy.Damage);
-
+        _enemyAnimator.SetTrigger("Attack");
         _playerHUD.setHP(player.CurrentHP);
 
         yield return _waitTime;

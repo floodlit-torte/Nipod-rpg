@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9158327303028500066}
   - component: {fileID: 9098597169630491056}
   - component: {fileID: 9157684185170453454}
+  - component: {fileID: 5559659463172497389}
   m_Layer: 0
   m_Name: SlimePBR
   m_TagString: Untagged
@@ -97,6 +98,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5559659463172497389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9155941650645435356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bca014284def4db8308ed951c4e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 75
+  maxHealthPoints: 150
+  maxSoulPoints: 20
 --- !u!1 &9156010944880660520
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +451,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9156823070248438808}
-  m_LocalRotation: {x: -0.39340413, y: 0.5875655, z: -0.39340413, w: 0.5875655}
+  m_LocalRotation: {x: 0, y: 0, z: -0.55636096, w: 0.8309408}
   m_LocalPosition: {x: 1.5037661e-32, y: 0.0631712, z: -0.008183928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -443,7 +459,7 @@ Transform:
   - {fileID: 9158373076214321644}
   m_Father: {fileID: 9158327303028500066}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -67.609}
 --- !u!1 &9156933496559357092
 GameObject:
   m_ObjectHideFlags: 0

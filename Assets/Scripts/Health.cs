@@ -45,8 +45,12 @@ public class Health : MonoBehaviour
     public bool TakeDamage(int damage)
     {
         _currentHP -= Mathf.Abs(damage);
-        _battleHUD.setHP((float)_currentHP / (float)maxHealthPoints);
+        //_battleHUD.setHP((float)_currentHP / (float)maxHealthPoints);
 
-        return _currentHP <= 0 ? true : false;
+        //return _currentHP <= 0 ? true : false;
+        if (_currentHP <= 0)
+            return true;
+        else
+            return false;
     }
 }
